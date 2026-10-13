@@ -1,0 +1,48 @@
+{
+  "name": "opencode-skill-audit",
+  "version": "0.1.0",
+  "description": "OpenCode v2 TUI plugin: context occupancy and loaded-skill accounting in the footer",
+  "type": "module",
+  "exports": {
+    "./tui": "./src/tui.tsx"
+  },
+  "files": [
+    "src/tui.tsx",
+    "src/calc.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "build:check": "tsc -p tsconfig.build.json --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "node src/calc.test.ts",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run build:check && npm run test"
+  },
+  "peerDependencies": {
+    "@opentui/core": ">=0.5.8",
+    "@opentui/solid": ">=0.5.8",
+    "solid-js": ">=1.9.0"
+  },
+  "peerDependenciesMeta": {
+    "@opentui/core": {
+      "optional": true
+    },
+    "@opentui/solid": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@opencode/plugin": "2.0.26",
+    "@opentui/core": "0.6.0",
+    "@opentui/solid": "0.6.0",
+    "@types/node": "^24.0.0",
+    "eslint": "^10.12.0",
+    "prettier": "^3.9.10",
+    "solid-js": "1.9.12",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.71.1"
+  }
+}

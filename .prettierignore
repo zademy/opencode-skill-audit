@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.opencode/
+.codegraph/
+package-lock.json
+.agents/
