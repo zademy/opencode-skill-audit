@@ -1,6 +1,6 @@
 {
   "name": "opencode-skill-audit-tui",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "OpenCode v2 TUI plugin: context occupancy and loaded-skill accounting in the footer",
   "type": "module",
   "repository": {
@@ -26,13 +26,6 @@
     "format:check": "prettier --check .",
     "test": "node src/calc.test.ts",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run build:check && npm run test"
-  },
-  "dependencies": {
-    "@opencode/plugin": "^2.0.26"
-  },
-  "peerDependencies": {
-    "@opentui/solid": ">=0.5.8",
-    "solid-js": ">=1.9.0"
   },
   "devDependencies": {
     "@opencode/plugin": "2.0.26",
