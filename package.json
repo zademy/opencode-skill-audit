@@ -1,23 +1,24 @@
 {
   "name": "opencode-skill-audit-tui",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "OpenCode v2 TUI plugin: context occupancy and loaded-skill accounting in the footer",
   "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zademy/opencode-skill-audit.git"
   },
+  "main": "./dist/tui.js",
   "exports": {
-    ".": "./src/tui.tsx",
-    "./tui": "./src/tui.tsx"
+    ".": "./dist/tui.js",
+    "./tui": "./dist/tui.js"
   },
   "files": [
-    "src/tui.tsx",
-    "src/calc.ts",
+    "dist",
     "README.md"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build",
     "typecheck": "tsc --noEmit",
     "build:check": "tsc -p tsconfig.build.json --noEmit",
     "lint": "eslint .",
@@ -26,18 +27,12 @@
     "test": "node src/calc.test.ts",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run build:check && npm run test"
   },
+  "dependencies": {
+    "@opencode/plugin": "^2.0.26"
+  },
   "peerDependencies": {
-    "@opentui/core": ">=0.5.8",
     "@opentui/solid": ">=0.5.8",
     "solid-js": ">=1.9.0"
-  },
-  "peerDependenciesMeta": {
-    "@opentui/core": {
-      "optional": true
-    },
-    "@opentui/solid": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@opencode/plugin": "2.0.26",

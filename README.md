@@ -37,7 +37,7 @@ the other plugins you already use — one more line, nothing else:
 ```
 
 OpenCode downloads and installs the package on restart — no checkout, no
-build. The entrypoint is the default export of `src/tui.tsx`, exposed as the
+build. The entrypoint is `dist/tui.js` (compiled from `src/tui.tsx`), exposed as the
 package root and as `opencode-skill-audit-tui/tui`.
 
 ### From a local checkout
