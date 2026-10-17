@@ -12,60 +12,72 @@ A skill activation is a `skill` **tool call**, not a message. `type=skill` on
 the message API returns nothing even for a session that has loaded several
 skills, so the plugin reads the tool parts.
 
-## Build and install
+## Install
 
-Two steps, done by hand.
+Two ways: from npm, or from a local checkout.
 
-**1. Compile.**
+### From npm — the published plugin
 
-```sh
-npm run build
+Add the package to the `plugins` array of your OpenCode config
+(`~/.config/opencode/opencode.json` for your whole account,
+`<project>/.opencode/opencode.json` for a single project). It sits next to
+the other plugins you already use — one more line, nothing else:
+
+```json
+{
+  "plugins": [
+    "@dietrichgebert/ponytail",
+    "hashline-opencode-plugin",
+    "@tarquinen/opencode-dcp@latest",
+    "@plannotator/opencode@latest",
+    "open-context-mode@latest",
+    "opencode-skill-audit@latest"
+  ]
+}
 ```
 
-`src/*.ts` becomes `dist/*.js`.
+OpenCode downloads and installs the package on restart — no checkout, no
+build. The entrypoint is the default export of `src/tui.tsx`, exposed as the
+package root and as `opencode-skill-audit/tui`.
 
-**2. Create the plugin folder and copy the two files into it.**
+### From a local checkout
 
-macOS / Linux:
+Build it once:
+
+```sh
+git clone https://github.com/zademy/opencode-skill-audit.git
+cd opencode-skill-audit && npm install && npm run build
+```
+
+`src/*.ts(x)` becomes `dist/*.js`. OpenCode auto-loads every plugin folder
+under `~/.config/opencode/plugins/` and discovers each one from `<dir>/tui.*`
+(verified on v2.0.26). So create the plugin folder with a single file that
+points OpenCode at your compiled checkout:
 
 ```sh
 mkdir -p ~/.config/opencode/plugins/skill-audit
-cp dist/tui.js dist/calc.js ~/.config/opencode/plugins/skill-audit/
+cat > ~/.config/opencode/plugins/skill-audit/tui.ts <<'EOF'
+export { default } from "/absolute/path/to/opencode-skill-audit/dist/tui.js";
+EOF
 ```
 
-Windows (PowerShell):
+Replace the path with the root of your checkout. After editing `src/`, rebuild
+with `npm run build`; OpenCode picks the changes up on its own within ~100ms,
+so there is no restart and no re-copy.
 
-```powershell
-New-Item -ItemType Directory -Force "$HOME\.config\opencode\plugins\skill-audit" | Out-Null
-Copy-Item dist\tui.js, dist\calc.js "$HOME\.config\opencode\plugins\skill-audit\"
-```
-
-Result:
-
-```
-~/.config/opencode/plugins/skill-audit/
-  tui.js      <- entrypoint
-  calc.js
-```
-
-Redo both steps whenever you edit `src/`. OpenCode picks up new files on its own
-within ~100ms, so there is no restart.
+Windows: the plugin path is XDG-style on **every** platform —
+`C:\Users\<you>\.config\opencode\plugins\skill-audit\tui.ts` — not
+`%APPDATA%`. That is deliberate, not an oversight.
 
 Two details that are easy to get wrong:
 
-- `tui.js` must sit at the **root** of the plugin folder. OpenCode discovers a
-  directory plugin from `<dir>/tui.*`; a folder holding `tui.js` inside a `dist/`
-  subfolder is silently **not** loaded, with no error anywhere.
-- Do not put a `package.json` in the plugin folder. It is inert there, and its
-  `exports` field would be a lie: it describes `./src/tui.tsx` while the real
-  entrypoint is `tui.js` at the root. Verified on v2.0.26 - deleting it changes
-  nothing and the path never appears in the log. That field only matters for a
-  package published to npm, which this is not.
-
-Run `npm install` once beforehand. The plugin path is XDG-style on **every**
-platform, including native Windows where it is
-`C:\Users\<you>\.config\opencode\plugins\` - not `%APPDATA%`. That is
-deliberate, not an oversight.
+-- The shim must be named `tui.*` and sit at the **root** of the plugin
+  folder — OpenCode discovers the directory plugin from that filename. A
+  folder holding `tui.js` inside a `dist/` subfolder is silently **not**
+  loaded, with no error anywhere.
+-- Do not put a `package.json` in the plugin folder. It is inert there and the
+  path never appears in the log; the manifest only matters for the npm
+  package.
 
 Confirm it was picked up:
 

@@ -1,9 +1,10 @@
 {
   "name": "opencode-skill-audit",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "description": "OpenCode v2 TUI plugin: context occupancy and loaded-skill accounting in the footer",
   "type": "module",
   "exports": {
+    ".": "./src/tui.tsx",
     "./tui": "./src/tui.tsx"
   },
   "files": [
