@@ -31,14 +31,14 @@ the other plugins you already use — one more line, nothing else:
     "@tarquinen/opencode-dcp@latest",
     "@plannotator/opencode@latest",
     "open-context-mode@latest",
-    "opencode-skill-audit@latest"
+    "opencode-skill-audit-tui@latest"
   ]
 }
 ```
 
 OpenCode downloads and installs the package on restart — no checkout, no
 build. The entrypoint is the default export of `src/tui.tsx`, exposed as the
-package root and as `opencode-skill-audit/tui`.
+package root and as `opencode-skill-audit-tui/tui`.
 
 ### From a local checkout
 

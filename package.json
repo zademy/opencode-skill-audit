@@ -1,8 +1,12 @@
 {
-  "name": "opencode-skill-audit",
+  "name": "opencode-skill-audit-tui",
   "version": "0.4.0",
   "description": "OpenCode v2 TUI plugin: context occupancy and loaded-skill accounting in the footer",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zademy/opencode-skill-audit.git"
+  },
   "exports": {
     ".": "./src/tui.tsx",
     "./tui": "./src/tui.tsx"
