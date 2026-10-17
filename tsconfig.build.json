@@ -8,5 +8,5 @@
     "allowImportingTsExtensions": false,
     "rewriteRelativeImportExtensions": true
   },
-  "include": ["src/tui.tsx", "src/calc.ts"]
+  "include": ["src/tui.tsx", "src/calc.ts", "src/index.ts"]
 }

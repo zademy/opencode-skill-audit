@@ -72,12 +72,12 @@ Windows: the plugin path is XDG-style on **every** platform —
 Two details that are easy to get wrong:
 
 -- The shim must be named `tui.*` and sit at the **root** of the plugin
-  folder — OpenCode discovers the directory plugin from that filename. A
-  folder holding `tui.js` inside a `dist/` subfolder is silently **not**
-  loaded, with no error anywhere.
+folder — OpenCode discovers the directory plugin from that filename. A
+folder holding `tui.js` inside a `dist/` subfolder is silently **not**
+loaded, with no error anywhere.
 -- Do not put a `package.json` in the plugin folder. It is inert there and the
-  path never appears in the log; the manifest only matters for the npm
-  package.
+path never appears in the log; the manifest only matters for the npm
+package.
 
 Confirm it was picked up:
 

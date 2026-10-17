@@ -55,6 +55,7 @@ const COL_SHARE = 8
 export default Plugin.define({
   id: "skill-audit",
   setup(context) {
+    if (!context.keymap) return // not the TUI runtime - nothing to do here
     const muted = () => context.theme?.text?.muted ?? context.theme?.text?.base
     const alert = () =>
       context.theme?.warning ?? context.theme?.error ?? context.theme?.text?.feedback
